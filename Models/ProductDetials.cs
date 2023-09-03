@@ -14,5 +14,7 @@ namespace DashBord.Models
 		public string Color { get; set; }
 		public string Image { get; set; }
 
+
+
     }
 }

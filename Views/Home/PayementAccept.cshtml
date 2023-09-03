@@ -1,0 +1,43 @@
+﻿@model PaymentAccept;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-10 bg-secondary ">
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <!--begin::Content wrapper-->
+        <div class="d-flex flex-column flex-column-fluid">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Toolbar container-->
+                <!--end::Toolbar container-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Content-->
+            <div id="kt_app_content p-10" class="app-content flex-column-fluid">
+                <!--begin::Content container-->
+                <div id="kt_app_content_container p-5" class="app-container container-xxl">
+<div class="container mt-4">
+                        <form asp-action="PayementAccept" method="post">
+    <div class="row d-flex-content-center">
+        <div class="col">
+            <label id="payment">الرجاء إضافة بطاقة الدفع لإعتمادها</label>
+            <input asp-for="@Model.Payment" class="form-control" id="Payment" />
+</div>
+    </div>
+    <span class="text-danger" asp-validation-for="@Model.Payment"></span>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+            <button type="submit" class="btn btn-primary">حفظ</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
