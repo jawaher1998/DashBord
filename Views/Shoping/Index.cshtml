@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Products>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+     
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutShoping.cshtml";
+
+    var productDe = ViewBag.ProductDetials;
+}
+<div class="row">
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+           @foreach(var item in productDe)
+            {
+
+            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+                <div class="card">
+                    <div class="d-flex justify-content-between p-3">
+                        <p class="lead mb-0">Today's Combo Offer</p>
+                        <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                             style="width: 35px; height: 35px;">
+                            <p class="text-white mb-0 small">x4</p>
+                        </div>
+                    </div>
+                @if (item.Image != null)
+                {
+                            <img src="~/assets/images/@item.Image"   alt="Trendy Pants and Shoes"  class="img-fluid rounded-start " class="card-img-top" alt="Laptop" />
+                }
+          
+
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <p class="small"><a href="#!" class="text-muted">phone</a></p>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+            @foreach (var name in Model)
+                { 
+                    @if (item.ProductId == name.Id)
+                    {
+
+                                        <h5 class="mb-0">@name.ProductName</h5>
+
+                    }
+            }
+                                <h5 class="text-dark mb-0">@item.Price</h5>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <p class="text-muted mb-0">Available: <span class="fw-bold">@item.Qty</span></p>
+
+
+                            </div>
+                        </div>
+                            <hr class="my-0" />
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                                    <a asp-action="ProductDetailes" asp-route-id="@item.ProductId" class="text-dark fw-bold">تفاصيل المنتج</a>
+                                    <button type="submit" class="btn btn-primary">شراء</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+
+
+
+
+                    }
+                </div>
+            </div>
+        </section>
+</div>
+
+@*
+<button type="submit" class="btn btn-primary">شراء</button>
+            </div>
+<a asp-action="ProductDetailes" asp-route-id="Id" class="btn btn-primary">تفاصيل المنتج</a>
+        </div>
+    </div>
+</div>
+    </div>
+
+*@
+
+
+                
+                         
+                     

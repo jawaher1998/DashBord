@@ -5,14 +5,21 @@
 namespace DashBord.Migrations
 {
     /// <inheritdoc />
-    public partial class threed : Migration
+    public partial class second : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Region",
-                table: "customers",
+                name: "Image",
+                table: "Products",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "price",
+                table: "Products",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
@@ -22,8 +29,12 @@ namespace DashBord.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Region",
-                table: "customers");
+                name: "Image",
+                table: "Products");
+
+            migrationBuilder.DropColumn(
+                name: "price",
+                table: "Products");
         }
     }
 }

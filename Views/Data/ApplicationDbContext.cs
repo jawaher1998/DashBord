@@ -12,6 +12,6 @@ namespace DashBord.Views.Data
 		public DbSet<ProductDetials> ProductDetials { get; set; }
 		public DbSet<Customer> customers { get; set; }
 		public DbSet<Invoice> invoices { get; set; }
-
+		public DbSet<Cart> carts { get; set; }
 	}
 }
