@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashBord.Migrations.DashBordDB
 {
     [DbContext(typeof(DashBordDBContext))]
-    [Migration("20230827154541_addcloumn")]
-    partial class addcloumn
+    [Migration("20231014145224_firstmigration")]
+    partial class firstmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -5,11 +5,32 @@
 namespace DashBord.Migrations
 {
     /// <inheritdoc />
-    public partial class Mytable : Migration
+    public partial class firstmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdCustomer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdProducts = table.Column<int>(type: "int", nullable: false),
+                    ProductsName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<double>(type: "float", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    Qty = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tax = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_carts", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "customers",
                 columns: table => new
@@ -36,7 +57,7 @@ namespace DashBord.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     ProudectId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     QTY = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -53,7 +74,7 @@ namespace DashBord.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -65,24 +86,14 @@ namespace DashBord.Migrations
                 {
                     table.PrimaryKey("PK_ProductDetials", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "carts");
+
             migrationBuilder.DropTable(
                 name: "customers");
 
@@ -91,9 +102,6 @@ namespace DashBord.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductDetials");
-
-            migrationBuilder.DropTable(
-                name: "Products");
         }
     }
 }

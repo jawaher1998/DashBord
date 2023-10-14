@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DashBord.Migrations.DashBordDB
 {
     /// <inheritdoc />
-    public partial class addcloumn : Migration
+    public partial class firstmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

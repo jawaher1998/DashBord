@@ -116,8 +116,8 @@ namespace DashBord.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("ProudectId")
                         .HasColumnType("int");
@@ -164,8 +164,9 @@ namespace DashBord.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Qty")
                         .HasColumnType("int");
@@ -173,23 +174,6 @@ namespace DashBord.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductDetials");
-                });
-
-            modelBuilder.Entity("DashBord.Models.Products", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
         }

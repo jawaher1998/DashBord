@@ -8,7 +8,7 @@ namespace DashBord.Models
 		public int Id { get; set; }
 		public int CustomerId { get; set; }
 		public int ProudectId { get; set; }
-		public decimal Price { get; set; }
+		public double Price { get; set; }
 		public string QTY { get; set; }
 		public decimal Tax { get; set; }
 		public decimal Discount { get; set; }

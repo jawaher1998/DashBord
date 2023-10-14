@@ -33,7 +33,7 @@ namespace DashBord.Controllers
             //HttpContext.Session.SetString("Name", name);
             //TempData["Name"] = "إضافة منتج";
 			ViewBag.Name = "إضافة منتج";
-			var proudect = _dbContext.Products.ToList();
+			var proudect = _dbContext.ProductDetials.ToList();
 
               
 
@@ -54,22 +54,20 @@ namespace DashBord.Controllers
             //ViewBag.Name = HttpContext.Session.GetString("Name");
             //ViewBag.Name = TempData["Name"];
             ViewBag.Name = " تفاصيل المنتج";
-			var proudect = _dbContext.Products.ToList();
-            var proudectDetailes = _dbContext.ProductDetials.ToList();
-			ViewBag.ProductDetials = proudectDetailes;
+			var proudect = _dbContext.ProductDetials.ToList();
+  
 			return View(proudect);
 		}
-        [HttpPost]
-		public IActionResult CreateNewProduct(Products products)
+      /***  [HttpPost]
+		public IActionResult CreateNewProduct(ProductDetials products)
 		{
 
-			_dbContext.Products.Add(products);
+			_dbContext.ProductDetials.Add(products);
 			_dbContext.SaveChanges();
 			TempData["alter"] = "تم إضافة منتج جديد";
-
 			return RedirectToAction("index");
 		}
-
+      ***/
 	public IActionResult AddProductDetails(ProductDetials productDetails)
         { 
 		
@@ -80,19 +78,19 @@ namespace DashBord.Controllers
         [HttpPost]
        public IActionResult ProductDetails(int id)
         {
-			var proudectDetailes = _dbContext.ProductDetials.Where(proudects=> proudects.ProductId == id).ToList();
+			var proudectDetailes = _dbContext.ProductDetials.Where(proudects=> proudects.Id == id).ToList();
 
-			var proudect = _dbContext.Products.ToList();
+			var proudect = _dbContext.ProductDetials.ToList();
             ViewBag.ProductDetials = proudectDetailes;
 
 			return View(proudect);
         }
         public IActionResult Delete(int id)
         {
-            var productid = _dbContext.Products.SingleOrDefault(p => p.Id == id);
+            var productid = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == id);
             if (productid != null)
             {
-                _dbContext.Products.Remove(productid);
+                _dbContext.ProductDetials.Remove(productid);
                 _dbContext.SaveChanges();
 				TempData["alter"] = "تم حذف المنتج";
 
@@ -103,11 +101,11 @@ namespace DashBord.Controllers
         {
 			ViewBag.Name = " تعديل المنتجات";
 
-			var productid = _dbContext.Products.SingleOrDefault(p => p.Id == id);
+			var productid = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == id);
 			return View(productid);
         }
-        public IActionResult Update(Products products) {
-            Products product = _dbContext.Products.SingleOrDefault(p => p.Id == products.Id) ?? new Products();
+        public IActionResult Update(ProductDetials products) {
+            ProductDetials product = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == products.Id) ?? new ProductDetials();
 
                 product.ProductName = products.ProductName;
             
@@ -120,7 +118,7 @@ namespace DashBord.Controllers
         public IActionResult Index(string productName)
         {
 
-            var ProductName = _dbContext.Products.Where(PN => PN.ProductName.Contains(productName)).ToList();
+            var ProductName = _dbContext.ProductDetials.Where(PN => PN.ProductName.Contains(productName)).ToList();
 
             TempData["show"] = "إظهار الكل";
 
@@ -128,7 +126,7 @@ namespace DashBord.Controllers
         }
 		public IActionResult DeleteProductDetail(int id)
 		{
-			var productid = _dbContext.ProductDetials.SingleOrDefault(p => p.ProductId == id);
+			var productid = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == id);
 			if (productid != null)
 			{
 				_dbContext.ProductDetials.Remove(productid);

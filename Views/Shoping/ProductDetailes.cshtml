@@ -1,57 +1,110 @@
-﻿@model IEnumerable<Products>
+﻿@model IEnumerable<Cart>
+
 @{
 
     Layout = "~/Views/Shared/_LayoutShoping.cshtml";
     var proName = ViewBag.ProductDetials;
 
-}
-    <!-- Product section-->
 
+}
+<!-- Product section-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+
+
+<script>
+
+    $(document).on('click', '.value-control', function () {
+        var action = $(this).attr('data-action')
+        var target = $(this).attr('data-target')
+        var value = parseFloat($('[id="' + target + '"]').val());
+        if (value > 0) {
+            if (action == "plus") {
+                value++;
+            }
+            if (action == "minus") {
+                value--;
+            }
+            $('[id="' + target + '"]').val(value);
+            var price = $('#price1').val();
+            var totalPrice = parseInt(value) * parseFloat(price == '' ? 0 : price);
+            console.log(totalPrice);
+            $('#quntity1 input').val(totalPrice.toFixed(0));
+        }
+    });
+</script>
 <section class="py-5">
     <div class="container ">
         @foreach (var item in proName)
         {
-        <div class="row">
-
+            <div class="row">
                 <div class="col-md-6">
-                    <img class="card-img-top mb-5 mb-md-0" src="~/assets/images/@item.Image" alt="..." />
-            </div>  
-            <div class="col-md-6">
-                <div class="small mb-1">SKU: BST-498</div>
-            @foreach(var name in Model)
-            {
-                        if(item.ProductId == name.Id)
-                        {
-                            <h1 class="display-5 fw-bolder">@name.ProductName</h1>
-
-                        }
-
-                }
-        
-                   
+                    <img name="Image" id="Image" class="card-img-top mb-5 mb-md-0" src="~/assets/images/@item.Image" alt="..." />
+                </div>
+                <div class="col-md-6">
+                    <div class="small mb-1">SKU: BST-498</div>
+                    <h1 class="display-5 fw-bolder" name="ProductsName" id="ProductsName">@item.ProductName</h1>
                     <div class="fs-5 mb-5">
                         <span>@item.Price RS</span>
                     </div>
                     <p class="lead">@item.Description</p>
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
-                        <a asp-action="chekout" asp-route-id="@item.ProductId" class="btn btn-outline-dark flex-shrink-0">
-                            <i class="bi-cart-fill me-1"></i>
-                          إضاف الى السلة
-                        </a>
-                    </div> 
-                </div> 
-         
-           
+                    <div class="card">
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item ">
+                                <div class="flex-0">
+                                    <p name="IdProducts" id="IdProducts">@item.Id</p>
+                                    <h1 name="Color" id="Color">@item.Color</h1>
+                                    <h5>الكمية</h5>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a class="btn btn-default value-control" data-action="minus" data-target="font-size">
+                                                <span class="glyphicon glyphicon-minus">
+                                                </span>
+                                            </a>
+                                        </span>
+                                        <input name="Qty" type="text" value="1" class="form-control" id="font-size" />
+                                        <span class="input-group-btn">
+                                            <a class="btn btn-default value-control" data-action="plus" data-target="font-size">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="price1" type="hidden" value="@item.Price" />
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h5> السعر</h5>
+                                    </div>
+
+                                    <div id="quntity1" class="col-sm-6">
+                                        <input disabled name="price" class="Price" id="price" value="@item.Price" />
+                                    </div>
+                                </div>
+                            </li>
+                            <a type="submit" id="btnSave" asp-action="chekout" asp-route-id="@item.Id" class="btn btn-outline-dark container-fluid ">
+
+                                إضاف الى السلة
+                            </a>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        }
+    </div>
+</section>
 
-}             
-            
-        </div>
-    </section>
- 
 
- @*
+
+@*
+
+                                   <input class="form-control text-center me-3" id="Qty" onblur="getVal()" type="number" name="Qty" value="@Quantity" style="max-width: 3rem" />
+                                *@
+@*
 
   <!-- Related items section-->
     <section class="py-5 bg-light">
@@ -161,5 +214,13 @@
         </div>
     </section>
 
- *@  
-    
+
+
+
+
+
+
+
+
+
+ *@
