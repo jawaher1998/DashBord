@@ -18,22 +18,19 @@ public ShopingController(ApplicationDbContext dbContext)
 
         public IActionResult Index()
 		{
-          
+            var proudect = _dbContext.Products.ToList();
 			var proudectDetailes = _dbContext.ProductDetials.ToList();
-			
+			ViewBag.ProductDetials = proudectDetailes;
 
-			return View(proudectDetailes);
+			return View(proudect);
 		}
 		public IActionResult ProductDetailes(int id)
 		{
-            var proudectDetailes = _dbContext.ProductDetials.Where(proudects => proudects.Id == id).ToList();
-            
+            var proudectDetailes = _dbContext.ProductDetials.Where(proudects => proudects.ProductId == id).ToList();
+            var proudect = _dbContext.Products.ToList();
 			ViewBag.ProductDetials = proudectDetailes;
 
-            var PriceCart = _dbContext.carts.ToList();
-	
-
-            return View(PriceCart);
+            return View(proudect);
 		}
 		public async Task<string> sendemail()
 		{
@@ -68,100 +65,40 @@ public ShopingController(ApplicationDbContext dbContext)
 		
 
 		[Authorize]
-		public IActionResult chekout(int id,int qty,double Price)
+		public IActionResult chekout(int id)
 		{
-		var user = HttpContext.User.Identity.Name;
-			var productDatails = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == id);
-			
+			var user = HttpContext.User.Identity.Name;
+			var productDatails = _dbContext.ProductDetials.SingleOrDefault(p => p.ProductId == id);
+
+			var prodect = _dbContext.Products.SingleOrDefault(p => p.Id == productDatails.ProductId);
+
+
 			var	cart = new Cart()
 				{
 					IdCustomer = user,
-					Color= productDatails.Color,
-					ProductsName= productDatails.ProductName,
-					price= Price,
-					Qty= qty,
-					Image=productDatails.Image,
+					IdProducts = productDatails.ProductId,
+					Color = productDatails.Color,
+					Image = productDatails.Image,
+					price = productDatails.Price,
+					Qty = productDatails.Qty,
+					Tax = 0.15,
+					Total = productDatails.Price * (0.15) + productDatails.Price,
 
-            };
-                _dbContext.carts.Add(cart);
-				_dbContext.SaveChanges();			
-			return View(cart);
-		}
-		[HttpGet]
-		public IActionResult chekout()
-		{
-			var cart = _dbContext.carts.ToList();
-			return View(cart);
-		}
-		public IActionResult AddToCart(Cart cartinfo)
-		{
+					ProductsName = prodect.ProductName
+
+
+                };
+
+        
+				_dbContext.carts.Add(cart);
+				_dbContext.SaveChanges();
 
 			
-            _dbContext.carts.Add(cartinfo);
-            _dbContext.SaveChanges();
-            return RedirectToAction("chekout");
-        }
-
-
-
-        /***	[HttpPost]
-            public IActionResult updateitem(Cart cart)
-            {
-                var PriceCart = _dbContext.carts.ToList();
-                ViewBag.Cart = PriceCart;
-
-                Cart cartprice = _dbContext.carts.SingleOrDefault(p => p.Id == cart.Id) ?? new Cart();
-
-                cartprice.price = cart.price;
-
-                _dbContext.SaveChanges();
-
-
-                return RedirectToAction("chekout");
-
-            }
-            public IActionResult plus(int id)
-            {
-                var cart = _dbContext.carts.FirstOrDefault(c => c.IdProducts == id);
-
-
-                    cart.Qty += 1;
-
-
-                _dbContext.SaveChanges();
-                return RedirectToAction(nameof(ProductDetailes));
-            } 
-            public IActionResult minus(int id)
-            {
-                var cart = _dbContext.carts.FirstOrDefault(c => c.IdProducts == id);
-                cart.Qty -= 1;
-                _dbContext.SaveChanges();
-                return RedirectToAction("ProductDetailes");
-            }
-
-            ***/
-
-
-
-
-        public IActionResult Invoice(int id)
+			return View(cart);
+		}
+		public IActionResult Invoice()
 		{
-            /**   var CartDatails = _dbContext.carts.SingleOrDefault(p => p.Id == id);
-
-               var Invoice = new Invoice()
-               {
-                   CustomerId = CartDatails.IdCustomer,
-                   ProudectId = CartDatails.IdProducts,
-                   Price = CartDatails.price,
-
-
-
-
-                    
-               
-   **/
-
-            return View();
+			return View();
 		}
 
 

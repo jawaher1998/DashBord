@@ -1,6 +1,6 @@
-﻿@model IEnumerable<ProductDetials>;
+﻿@model IEnumerable<Products>;
 @{
-	
+	var prodecD = ViewBag.ProductDetials;
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewData["Title"] = "Home Page";
 	
@@ -109,7 +109,7 @@
 										<!--end::Table head-->
 										<!--begin::Table body-->
 
-                                        @foreach (var n in Model)
+                                        @foreach (var n in prodecD)
                                         {
 
 
@@ -125,7 +125,7 @@
                                                     <!--begin::Name=-->
                                                     <td>
 
-														<a href="#" class="text-gray-600 text-hover-primary mb-1">@n.Id</a>
+														<a href="#" class="text-gray-600 text-hover-primary mb-1">@n.ProductId</a>
 
 
 
@@ -134,8 +134,14 @@
                                                     <!--begin::Email=-->
                                                     <td>
 													
-												
-																<a href="#" class="text-gray-600 text-hover-primary mb-1">@n.ProductName</a>
+														@foreach(var item in Model)
+														{
+															if (item.Id == n.ProductId)
+															{
+																<a href="#" class="text-gray-600 text-hover-primary mb-1">@item.ProductName</a>
+
+															}
+														}
 
 
                                                     </td>
@@ -171,7 +177,7 @@
 											<td>
 
 												<a class="btn-primary btn" asp-route-id="@n.Id" asp-action="EditProducDetailes"><i class="far fa-pen-to-square"></i></a>
-												<a asp-action="DeleteProductDetail" asp-route-id="@n.Id" class="btn-danger btn"><i class="far fa-trash-can"></i></a>
+												<a asp-action="DeleteProductDetail" asp-route-id="@n.ProductId" class="btn-danger btn"><i class="far fa-trash-can"></i></a>
 											</td>
                                                 </tr>
 
@@ -206,7 +212,17 @@
 												<div class="row">
 													<div class="col-sm-12">
 														<label for="proudectname">اسم المنتج</label>
-														<input id="ProductName" name="ProductName" type="text" class="form-control col-form-label-sm" />
+														<select class="form-select form-select-solid" name="ProductId">
+															@if(Model != null)
+															{
+																		@foreach (var item in Model)
+															{
+																<option value="@item.Id">@item.ProductName</option>
+
+															}
+															}
+													
+														</select>
 														<div class="row">
 															<div class="col-sm">
                                                                 <label for="proudectname">وصف المنتج</label>

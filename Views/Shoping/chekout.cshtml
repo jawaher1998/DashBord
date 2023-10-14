@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Cart>
+﻿@model Cart
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -17,67 +17,59 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="h5">الصورة</th>
-                                <th scope="col" >الاسم</th>
+                                <th scope="col" class="h5">صورة المنتج</th>
                                 <th scope="col">اللون</th>
                                 <th scope="col">العدد</th>
                                 <th scope="col">السعر</th>
                             </tr>
-                        </thead>    
-                        @foreach (var item in Model)
-                        {
-
-                    
+                        </thead>
                         <tbody>
                             <tr>
                           
-                                <td scope="row">
+                                <th scope="row">
                                     <div class="d-flex align-items-center">
-                                        <img  src="~/assets/images/@item.Image" class="img-fluid rounded-3"
+                                        <img src="~/assets/images/@Model.Image" class="img-fluid rounded-3"
                                              style="width: 120px;" alt="Book">
-                                    </div>
-                                </td>
-                                    <td class="align-middle">
                                         <div class="flex-column ms-4">
-                                            <p class="mb-2">@item.ProductsName</p>
-
+                                            <p class="mb-2">@Model.ProductsName</p>
+                    
                                         </div>
-                                </td>
+                                    </div>
+                                </th>
                                 <td class="align-middle">
-                                        <p class="mb-0" style="font-weight: 500;">@item.Color</p>
+                                    <p class="mb-0" style="font-weight: 500;">@Model.Color</p>
                                 </td>
                                 <td class="align-middle">
                                     <div class="d-flex flex-row">
-                                        <a asp-action="minus"  class="btn btn-link px-2"
+                                        <button class="btn btn-link px-2"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                             <i class="fas fa-minus"></i>
-                                        </a>
+                                        </button>
 
-                                            <input id="form1" min="0" name="Qty" value="@item.Qty" type="number"
+                                        <input id="form1" min="0" name="quantity" value="2" type="number"
                                                class="form-control form-control-sm" style="width: 50px;" />
 
-                                        <a  class="btn btn-link px-2"
+                                        <button class="btn btn-link px-2"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                             <i class="fas fa-plus"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                        <p class="mb-0" style="font-weight: 500;">@item.price</p>
+                                    <p class="mb-0" style="font-weight: 500;">@Model.price</p>
                                 </td>
                             </tr>
 
-                            </tbody>
-                        }
+                        </tbody>
                     </table>
                 </div>
 
                 <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
                     <div class="card-body p-4">
-                        <form>
+
                         <div class="row">
                             <div class="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
-                              
+                                <form>
                                     <div class="d-flex flex-row pb-3">
                                         <div class="d-flex align-items-center pe-2">
                                             <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v"
@@ -90,7 +82,7 @@
                                             </p>
                                         </div>
                                     </div>
-                              
+                                </form>
                             </div>
                             <div class="col-md-6 col-lg-4 col-xl-6">
                                 <div class="row">
@@ -122,24 +114,22 @@
                                     </div>
                                 </div>
                             </div>
-                           </form>
-
                             <div class="col-lg-4 col-xl-3">
                                 <div class="d-flex justify-content-between" style="font-weight: 500;">
                                     <p class="mb-2">Subtotal</p>
-                                    <p class="mb-2">SubTotal</p>
+                                    <p class="mb-2">@Model.price</p>
                                 </div>
 
                                 <div class="d-flex justify-content-between" style="font-weight: 500;">
                                     <p class="mb-0">Tax</p>
-                                    <p class="mb-0">Tax</p>
+                                    <p class="mb-0">@Model.Tax</p>
                                 </div>
 
                                 <hr class="my-4">
 
                                 <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
                                     <p class="mb-2">Total (tax included)</p>
-                                    <p class="mb-2">Total</p>
+                                    <p class="mb-2">@Model.Total</p>
                                 </div>
 
                                 <button type="button" class="btn btn-primary btn-block btn-lg">
@@ -149,7 +139,6 @@
                                 </button>
 
                             </div>
-                         
                         </div>
 
                     </div>

@@ -31,7 +31,7 @@ namespace DashBord.Controllers
         [HttpPost("getallphonew/{id}")]
         public JsonResult GetPhone(int id)
         {
-            var phoneData = _context.ProductDetials.SingleOrDefault(p => p.Id == id);
+            var phoneData = _context.Products.SingleOrDefault(p => p.Id == id);
             if (phoneData == null)
             {
                 return new JsonResult("no found!");

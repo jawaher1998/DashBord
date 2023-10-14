@@ -1,9 +1,9 @@
-﻿@model IEnumerable<ProductDetials>
+﻿@model IEnumerable<Products>
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 
 	ViewData["Title"] = "Home Page";
-	
+	var proudect = ViewBag.Products;
 }
 
 
@@ -167,8 +167,7 @@
 											<h1 class="modal-title fs-5" id="exampleModalLabel">إضافة منتج جديد</h1>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										@*
-	<form method="post" asp-action="CreateNewProduct">
+										<form method="post" asp-action="CreateNewProduct">
 										<div class="modal-body">
 											<div class="row">
 												<div class="col-sm-12">
@@ -183,8 +182,6 @@
 											<button type="submit" class="btn btn-primary">حفظ</button>
 										</div>
                                         </form>
-										*@
-									
 									</div>
 								</div>
 							</div>
