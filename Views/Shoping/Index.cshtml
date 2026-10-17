@@ -18,39 +18,48 @@
             <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
                 <div class="card">
                     <div class="d-flex justify-content-between p-3">
-                        <p class="lead mb-0">Today's Combo Offer</p>
+                              @foreach (var name in Model)
+                { 
+                    @if (item.ProductId == name.Id)
+                    {
+
+                       <p class="lead mb-0">@name.ProductName</p>
+
+                    }
+            }
+                        
                         <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
                              style="width: 35px; height: 35px;">
-                            <p class="text-white mb-0 small">x4</p>
+                            <p class="text-white mb-0 small">@item.Qty</p>
                         </div>
                     </div>
                 @if (item.Image != null)
                 {
-                            <img src="~/assets/images/@item.Image"   alt="Trendy Pants and Shoes"  class="img-fluid rounded-start " class="card-img-top" alt="Laptop" />
+                            <img src="~/images/@item.Image"  class="img-fluid rounded-start card-img-top" />
                 }
           
 
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            @* <div class="d-flex justify-content-between">
                                 <p class="small"><a href="#!" class="text-muted">phone</a></p>
 
-                            </div>
+                            </div> *@
 
-                            <div class="d-flex justify-content-between mb-3">
+            @*                 <div class="d-flex justify-content-between mb-3">
             @foreach (var name in Model)
                 { 
                     @if (item.ProductId == name.Id)
                     {
 
-                                        <h5 class="mb-0">@name.ProductName</h5>
+                       <h5 class="mb-0">@name.ProductName</h5>
 
                     }
             }
-                                <h5 class="text-dark mb-0">@item.Price</h5>
-                            </div>
+                                <p class="text-muted mb-0">Available: <h5 class="text-dark mb-0">@item.Price</h5>
+                            </div> *@
 
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="text-muted mb-0">Available: <span class="fw-bold">@item.Qty</span></p>
+                                <p class="text-muted mb-0">Price: <span class="fw-bold">@item.Price</span> SR</p>
 
 
                             </div>

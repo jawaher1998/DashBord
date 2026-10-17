@@ -40,7 +40,7 @@
 						<!--end::Card header-->
 						<!--begin::Card body-->
 						<div class="card-body pt-0">
-							<form asp-action="UpdateDetails" method="post">
+							<form asp-action="UpdateDetails" method="post" enctype="multipart/form-data">
 								<!--begin::card-->
 								<div class="row">
 									<div class="col-sm-6">
@@ -75,7 +75,7 @@
 								<div class="row">
 									<div class="mb-3">
 										<label for="formFile" class="form-label">رفع صورة</label>
-										<input class="form-control" type="text" id="formFile" asp-for="@Model.Image" name="Image">
+										<input class="form-control" type="file" id="formFile" asp-for="@Model.Image" name="ImageFile">
 									</div>
 									</div>
 									<div class="row">

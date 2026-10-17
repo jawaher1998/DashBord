@@ -13,12 +13,15 @@ namespace DashBord.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly ApplicationDbContext _dbContext;
+        private readonly IWebHostEnvironment _env;
 
 
 
-		public HomeController(ApplicationDbContext applicationDbContext)
+
+        public HomeController(ApplicationDbContext applicationDbContext, IWebHostEnvironment env)
         {
             this._dbContext = applicationDbContext;
+            this._env = env;
 
         }
 
@@ -144,22 +147,42 @@ namespace DashBord.Controllers
 
 			return View(productid);
         }
-		public IActionResult UpdateDetails(ProductDetials products)
-		{
-			ProductDetials product = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == products.Id) ?? new ProductDetials();
+        
+        public async Task<IActionResult> UpdateDetails(ProductDetials products, IFormFile ImageFile)
+        {
+            ProductDetials product = _dbContext.ProductDetials.SingleOrDefault(p => p.Id == products.Id) ?? new ProductDetials();
+            if (product == null) return NotFound();
 
-			product.Description = products.Description;
+            product.Description = products.Description;
             product.Price = products.Price;
-            product.Qty= products.Qty;
+            product.Qty = products.Qty;
             product.Color = products.Color;
             product.Model = product.Model;
             product.Image = products.Image;
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                var uploads = Path.Combine(_env.WebRootPath, "images");
+                Directory.CreateDirectory(uploads);
 
-			_dbContext.SaveChanges();
-			TempData["alter"] = "تم تعديل البيانات";
+                var ext = Path.GetExtension(ImageFile.FileName);
+                var fileName = $"{Guid.NewGuid()}{ext}";
+                var filePath = Path.Combine(uploads, fileName);
 
-			return RedirectToAction("ProductDetails");
-		}
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(stream);
+                }
+
+                // store relative URL/path in DB
+                product.Image = fileName;
+            }
+
+            _dbContext.SaveChanges();
+            TempData["alter"] = "تم تعديل البيانات";
+
+            return RedirectToAction("ProductDetails");
+        }
+
         public IActionResult PayementAccept()
         {
             return View();

@@ -70,10 +70,16 @@ public ShopingController(ApplicationDbContext dbContext)
 			var user = HttpContext.User.Identity.Name;
 			var productDatails = _dbContext.ProductDetials.SingleOrDefault(p => p.ProductId == id);
 
-			var prodect = _dbContext.Products.SingleOrDefault(p => p.Id == productDatails.ProductId);
+            if (productDatails == null)
+                return NotFound(); // or return a user-friendly error/view
+
+            var prodect = _dbContext.Products.SingleOrDefault(p => p.Id == productDatails.ProductId);
+            if (prodect == null)
+                return NotFound(); // optional additional check
 
 
-			var	cart = new Cart()
+
+            var cart = new Cart()
 				{
 					IdCustomer = user,
 					IdProducts = productDatails.ProductId,
